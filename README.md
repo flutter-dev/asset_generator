@@ -2,7 +2,7 @@
 根据pubspec.yaml中设置的目录模板自动向其中添加文件记录的简单脚本
 
 # 效果演示
-![](https://github.com/flutter-dev/asset_generator/blob/master/raw/demo.gif?raw=true)
+![img-w150](https://github.com/flutter-dev/asset_generator/blob/master/raw/demo.gif?raw=true)
 
 # 安装方法
 1. 下载 asset_generator.dart 脚本文件
