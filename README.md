@@ -1,0 +1,2 @@
+# asset_generator
+根据pubspec.yaml中设置的目录模板自动向其中添加文件记录的简单脚本
