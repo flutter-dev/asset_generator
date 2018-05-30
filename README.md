@@ -1,3 +1,10 @@
+# 更新(2018-05-30)
+由于官方工具升级，现在已经支持直接在 pubspec.yaml 中填写文件夹并自动扫描添加其中的资源文件了，参考：
+[https://flutter.io/assets-and-images/](https://flutter.io/assets-and-images/)
+[Scan assets from disk #16413](https://github.com/flutter/flutter/pull/16413)
+可以采用这种方式来代替刷新脚本了。
+不过利用脚本中生成 r.dart 资源文件方便在代码中引用的功能仍然是有意义的……
+
 # asset_generator
 根据pubspec.yaml中设置的目录模板自动向其中添加文件记录的简单脚本
 
