@@ -20,7 +20,8 @@ Arguments 项需要设置为安装方法中下载脚本放置位置的绝对路�
 Working directory 项需要填 $ProjectFileDir$ ， 以确保脚本能在工程中以正确的路径执行
 
 ## vscode
-。。。
+...
+(征求对vscode设置熟悉的大佬帮忙补全这一部分说明。)
 
 # 使用方法
 编辑 pubspec.yaml 文件，在需要脚本处理的位置加入如下格式的注释：
