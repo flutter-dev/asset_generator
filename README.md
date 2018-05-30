@@ -1,8 +1,8 @@
 # 更新(2018-05-30)
-由于官方工具升级，现在已经支持直接在 pubspec.yaml 中填写文件夹并自动扫描添加其中的资源文件了，参考：
-[https://flutter.io/assets-and-images/](https://flutter.io/assets-and-images/)
-[Scan assets from disk #16413](https://github.com/flutter/flutter/pull/16413)
-可以采用这种方式来代替刷新脚本了。
+由于官方工具升级，现在已经支持直接在 pubspec.yaml 中填写文件夹并自动扫描添加其中的资源文件了，参考：<br>
+[https://flutter.io/assets-and-images/](https://flutter.io/assets-and-images/)<br>
+[Scan assets from disk #16413](https://github.com/flutter/flutter/pull/16413)<br>
+可以采用这种方式来代替刷新脚本了。<br>
 不过利用脚本中生成 r.dart 资源文件方便在代码中引用的功能仍然是有意义的……
 
 # asset_generator
@@ -22,9 +22,9 @@
 ![](https://github.com/flutter-dev/asset_generator/blob/master/raw/idea_setting.png?raw=true)
 2. 点击添加按钮，参考下图配置：
 ![](https://github.com/flutter-dev/asset_generator/blob/master/raw/idea_ext_tools.png?raw=true)
-其中名称简介均可随意设置，Program 项需要设置为 flutter 目录内下载的 dart 命令的绝对路径；
-Arguments 项需要设置为安装方法中下载脚本放置位置的绝对路径；
-Working directory 项需要填 $ProjectFileDir$ ， 以确保脚本能在工程中以正确的路径执行
+其中名称简介均可随意设置，Program 项需要设置为 flutter 目录内下载的 dart 命令的绝对路径；<br>
+Arguments 项需要设置为安装方法中下载脚本放置位置的绝对路径；<br>
+Working directory 项需要填 $ProjectFileDir$ ， 以确保脚本能在工程中以正确的路径执行<br>
 
 ## vscode
 ...
