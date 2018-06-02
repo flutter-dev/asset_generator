@@ -1,3 +1,7 @@
+# 更新(2018-06-03)
+向生成的r.dart资源文件中增加了图片预览功能，可以在ide中选择资源时通过快捷键显示预览(as/idea默认为Ctrl+q)，效果如下：
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/preview.gif?raw=true)
+由于注释中md格式图片引用不支持本地路径，所以是利用了脚本开启了一个本地文件服务器，如果出现端口冲突可以自行修改脚本中第7行 preview_server_port 的值即可。
 # 更新(2018-05-30)
 由于官方工具升级，现在已经支持直接在 pubspec.yaml 中填写文件夹并自动扫描添加其中的资源文件了，参考：<br>
 [https://flutter.io/assets-and-images/](https://flutter.io/assets-and-images/)<br>
