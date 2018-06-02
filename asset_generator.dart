@@ -4,7 +4,9 @@
 
 import 'dart:io';
 
-void main() {
+var preview_server_port = 2227;
+
+void main() async {
   bool working = false;
   var pubSpec = new File('pubspec.yaml');
   var pubLines = pubSpec.readAsLinesSync();
@@ -24,7 +26,9 @@ void main() {
         if (directory.existsSync()) {
           var list = directory.listSync(recursive: true);
           for (var file in list) {
-            if (new File(file.path).statSync().type == FileSystemEntityType.file) {
+            if (new File(file.path)
+                .statSync()
+                .type == FileSystemEntityType.file) {
               var varName = file.path.replaceAll('/', '_').replaceAll('.', '_').toLowerCase();
               var pos = 0;
               String char;
@@ -36,6 +40,7 @@ void main() {
                 pos++;
               }
               varName = varName.replaceAll('_', '');
+              resource.add("/// ![](http://127.0.0.1:$preview_server_port/${file.path})");
               resource.add("static final String $varName = '${file.path}';");
               newLines.add('    - ${file.path}');
             }
@@ -66,4 +71,20 @@ void main() {
     spec = '$spec$line\n';
   }
   pubSpec.writeAsStringSync(spec);
+
+  var ser;
+  try {
+    ser = await HttpServer.bind('127.0.0.1', preview_server_port);
+    print('成功启动图片预览服务器于本机<$preview_server_port>端口');
+    ser.listen((req) {
+      var index = req.uri.path.lastIndexOf('.');
+      var subType = req.uri.path.substring(index);
+      req.response
+        ..headers.contentType = new ContentType('image', subType)
+        ..add(new File('.${req.uri.path}').readAsBytesSync())
+        ..close();
+    },);
+  } catch (e) {
+    print('图片预览服务器已启动或端口被占用');
+  }
 }
