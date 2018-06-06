@@ -31,8 +31,21 @@ Arguments 项需要设置为安装方法中下载脚本放置位置的绝对路�
 Working directory 项需要填 $ProjectFileDir$ ， 以确保脚本能在工程中以正确的路径执行<br>
 
 ## vscode
-...
-(征求对vscode设置熟悉的大佬帮忙补全这一部分说明。)
+1. 创建项目后，选择 [任务]  -> [配置任务] :
+
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/vscode_task_1.png?raw=true)
+
+2.选择从模板创建任务后，在下面的选项中选择最后一项 (Others 运行任意外部命令的示例)
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/vscode_task_2.png?raw=true)
+
+3.按照下图配置调用命令，需要注意 dart 命令脚本的实际路径， 名称随意:
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/vscode_task_3.png?raw=true)
+
+4.修改好 pubspec.yaml 文件后，可以通过 [任务]->[运行任务]，然后根据上一步配置的名称运行命令:
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/vscode_task_4.png?raw=true)
+
+5.命令运行后可以在底部终端显示栏中切换查看，点击垃圾桶图标可以停止脚本运行:
+![](https://github.com/flutter-dev/asset_generator/blob/master/raw/vscode_task_5.png?raw=true)
 
 # 使用方法
 编辑 pubspec.yaml 文件，在需要脚本处理的位置加入如下格式的注释：
