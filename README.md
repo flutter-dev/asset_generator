@@ -1,3 +1,29 @@
+# 更新(2020-09-01)
+资源文件中加入一个所有资源路径的数组，用于可以方便地进行资源遍历用以precache
+使用的工具类如下：
+```dart
+class H {
+  H._();
+
+  static final _h = H._();
+
+  factory H() => _h;
+
+  List<String> _preCached = [];
+
+  preCacheImages(context, {String preCachePath = "/pre_cache/"}) {
+    if (!_preCached.contains(preCachePath)) {
+      _preCached.add(preCachePath);
+      R.values.forEach((String path) {
+        if (path.contains(preCachePath)) {
+          precacheImage(AssetImage(path), context);
+        }
+      });
+    }
+  }
+}
+```
+
 # 更新(2018-06-03)
 向生成的r.dart资源文件中增加了图片预览功能，可以在ide中选择资源时通过快捷键显示预览(as/idea默认为Ctrl+q)，效果如下：
 ![](https://github.com/flutter-dev/asset_generator/blob/master/raw/preview.gif?raw=true)
