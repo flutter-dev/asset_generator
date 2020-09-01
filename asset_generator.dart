@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// Copyright 2018 DebuggerX <dx8917312@gmail.com>. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:io';
 
 var preview_server_port = 2227;
@@ -11,6 +15,7 @@ void main() async {
   var pubSpec = new File('pubspec.yaml');
   var pubLines = pubSpec.readAsLinesSync();
   var newLines = <String>[];
+  var varNames = <String>[];
   var resource = <String>[];
   for (var line in pubLines) {
     if (line.contains('begin') && line.contains('#') && line.contains('assets')) {
@@ -43,6 +48,7 @@ void main() async {
               varName = varName.replaceAll('_', '');
               resource.add("/// ![](http://127.0.0.1:$preview_server_port/$path)");
               resource.add("static final String $varName = '$path';");
+              varNames.add("    $varName,");
               newLines.add('    - $path');
             }
           }
@@ -64,7 +70,11 @@ void main() async {
   for (var line in resource) {
     content = '$content  $line\n';
   }
-  content = '$content}\n';
+  content = '$content\n  static final values = [\n';
+  for (var line in varNames) {
+    content = '$content  $line\n';
+  }
+  content = '$content  ];\n}\n';
   r.writeAsStringSync(content);
 
   var spec = '';
@@ -80,7 +90,8 @@ void main() async {
     ser.listen(
           (req) {
         var index = req.uri.path.lastIndexOf('.');
-        var subType = req.uri.path.substring(index);
+        var subType = req.uri.path.substring(index + 1);
+        print(subType);
         req.response
           ..headers.contentType = new ContentType('image', subType)
           ..add(new File('.${req.uri.path}').readAsBytesSync())
