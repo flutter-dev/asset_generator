@@ -6,9 +6,11 @@ import 'dart:io';
 
 var preview_server_port = 2227;
 
+bool isHiddenFile(FileSystemEntity file) => file.path[file.parent.path.length + 1] == '.';
+
 void main() async {
   bool working = false;
-  var pubSpec = new File('pubspec.yaml');
+  var pubSpec = File('pubspec.yaml');
   var pubLines = pubSpec.readAsLinesSync();
   var newLines = <String>[];
   var varNames = <String>[];
@@ -23,13 +25,12 @@ void main() async {
     if (working) {
       if (line.trim().startsWith('#') && line.trim().endsWith('*')) {
         newLines.add(line);
-        var directory = new Directory(line.replaceAll('#', '').replaceAll('*', '').trim());
+        var directory = Directory(line.replaceAll('#', '').replaceAll('*', '').trim());
         if (directory.existsSync()) {
-          var list = directory.listSync(recursive: true);
+          var list = directory.listSync(recursive: true)
+            ..sort((a, b) => a.path.compareTo(b.path));
           for (var file in list) {
-            if (new File(file.path)
-                .statSync()
-                .type == FileSystemEntityType.file) {
+            if (file.statSync().type == FileSystemEntityType.file && !isHiddenFile(file)) {
               var path = file.path.replaceAll('\\', '/');
               var varName = path.replaceAll('/', '_').replaceAll('.', '_').toLowerCase();
               var pos = 0;
@@ -49,7 +50,7 @@ void main() async {
             }
           }
         } else {
-          throw new FileSystemException('Directory wrong');
+          throw FileSystemException('Directory wrong');
         }
       }
     } else {
@@ -57,7 +58,7 @@ void main() async {
     }
   }
 
-  var r = new File('lib/r.dart');
+  var r = File('lib/r.dart');
   if (r.existsSync()) {
     r.deleteSync();
   }
@@ -89,8 +90,8 @@ void main() async {
         var subType = req.uri.path.substring(index + 1);
         print(subType);
         req.response
-          ..headers.contentType = new ContentType('image', subType)
-          ..add(new File('.${req.uri.path}').readAsBytesSync())
+          ..headers.contentType = ContentType('image', subType)
+          ..add(File('.${req.uri.path}').readAsBytesSync())
           ..close();
       },
     );
